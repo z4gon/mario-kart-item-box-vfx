@@ -8,8 +8,28 @@ VFX for the item box from the Mario Kart games, implemented both in Shader Graph
 
 ## Sections
 
+- [Shader Graph Implementation](#shader-graph-implementation)
 - [Creating the Textures](#creating-the-textures)
 - [Creating the Mesh](#creating-the-mesh)
+
+## Shader Graph Implementation
+
+### Animated Rainbow Colors
+
+1. Add two `Texture2D` properties, one for the rainbow colors and the other for the grayscale shapes.
+1. Add a `Velocity` property to control the velocity of the animation.
+1. Multiply the `Time` variable by the `Velocity` parameter, and add it to the `Red` channel of the `Grayscale` texture.
+1. Use this value as an offset in the `Tiling and Offset` node used to determine the UVs of the sampler 2D for the rainbow colors.
+1. Mark the shader to cull front (only render inward looking faces)
+
+#### Graph
+
+![Gif](./docs/color-graph.png)
+
+#### Result
+
+![Gif](./docs/5.gif)
+![Gif](./docs/6.gif)
 
 ## Creating the Textures
 
@@ -20,48 +40,3 @@ VFX for the item box from the Mario Kart games, implemented both in Shader Graph
 ## Creating the Mesh
 
 ![Gif](./docs/4.gif)
-
-<!-- ## Screenshots
-
-![Gif](./docs/1.gif)
-![Gif](./docs/1.gif)
-
-## Features
-
-- [Feature](#feature)
-- [Feature](#feature)
-- [Feature](#feature)
-
----
-
-## Feature
-
-1. Implementation detail.
-1. Implementation detail.
-1. Implementation detail.
-
-![Gif](./docs/1.gif)
-![Gif](./docs/1.gif)
-
-## Feature
-
-1. Implementation detail.
-1. Implementation detail.
-1. Implementation detail.
-
-![Gif](./docs/1.gif)
-![Gif](./docs/1.gif)
-
----
-
-## Implementation explained
-
-1. **Step**
-
-   1. Sub Step.
-   1. Sub Step.
-
-1. **Step**
-
-   1. Sub Step.
-   1. Sub Step. -->
