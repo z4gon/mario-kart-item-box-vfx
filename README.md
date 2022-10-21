@@ -9,12 +9,17 @@ VFX for the item box from the Mario Kart games, implemented both in Shader Graph
 ## Sections
 
 - [Creating the Textures](#creating-the-textures)
+- [Creating the Mesh](#creating-the-mesh)
 
 ## Creating the Textures
 
 ![Gif](./docs/1.gif)
 ![Gif](./docs/2.gif)
 ![Gif](./docs/3.gif)
+
+## Creating the Mesh
+
+![Gif](./docs/4.gif)
 
 <!-- ## Screenshots
 
