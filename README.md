@@ -1,13 +1,22 @@
-# Unity Template Project for URP
+# Mario Kart Item Box VFX
 
-{{YOUR_PROJECT_DESCRIPTION_HERE}} in **Unity 2021.3.10f1**
+VFX for the item box from the Mario Kart games, implemented both in Shader Graph and in pure HLSL for Universal RP in **Unity 2021.3.10f1**
 
 ### References
 
-- [Ref](https://adrianb.io/2014/08/09/perlinnoise.html)
-- [Ref](https://adrianb.io/2014/08/09/perlinnoise.html)
+- [MARIO KART Item Box tutorial by Jettelly](https://www.youtube.com/watch?v=4p0YvPHO4Wc)
 
-## Screenshots
+## Sections
+
+- [Creating the Textures](#creating-the-textures)
+
+## Creating the Textures
+
+![Gif](./docs/1.gif)
+![Gif](./docs/2.gif)
+![Gif](./docs/3.gif)
+
+<!-- ## Screenshots
 
 ![Gif](./docs/1.gif)
 ![Gif](./docs/1.gif)
@@ -50,4 +59,4 @@
 1. **Step**
 
    1. Sub Step.
-   1. Sub Step.
+   1. Sub Step. -->
