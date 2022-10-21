@@ -63,7 +63,7 @@ Shader "Unlit/ItemBoxColors"
                 float timeScaled = _Time.y * _ColorVelocity;
 
                 float offset = grayscaleColor.r + timeScaled;
-                float2 offsetUVs = float2(frac(IN.uv.x + offset), IN.uv.y);
+                float2 offsetUVs = frac(IN.uv + offset);
 
                 half4 rainbowColor = tex2D(_Colors, offsetUVs);
 
