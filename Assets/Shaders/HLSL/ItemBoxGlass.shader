@@ -23,7 +23,9 @@ Shader "Unlit/ItemBoxGlass"
             // macros and functions, and also contains #include references to other
             // HLSL files (for example, Common.hlsl, SpaceTransforms.hlsl, etc.).
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
-            // #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+            #include "./MainLight.hlsl"
+            #include "./BlinnPhongLighting.hlsl"
 
             struct Attributes
             {
@@ -62,7 +64,17 @@ Shader "Unlit/ItemBoxGlass"
                 fresnelDot = saturate(fresnelDot); // clamp to 0,1
                 half fresnel = max(0.0, 0.8 - fresnelDot); // fresnelDot is zero when normal is 90 deg angle from view dir
 
-                return half4(fresnel, fresnel, fresnel, 0.5);
+                // blinn phong
+                float3 lightDir = 0;
+                float3 lightColor = 0;
+                MainLight_half(lightDir, lightColor);
+
+                half specular = 0;
+                ComputeBlinnPhong_half(lightDir, IN.normal, IN.viewDir, specular);
+
+                half color = fresnel + specular;
+
+                return half4(color, color, color, 0.5);
             }
             ENDHLSL
         }
