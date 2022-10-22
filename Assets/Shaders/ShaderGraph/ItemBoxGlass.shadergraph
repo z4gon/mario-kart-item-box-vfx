@@ -647,10 +647,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 38.0,
-            "y": 400.9999694824219,
+            "x": 18.0,
+            "y": 375.0,
             "width": 208.0,
-            "height": 302.0000305175781
+            "height": 302.0
         }
     },
     "m_Slots": [
@@ -777,6 +777,21 @@
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.Rendering.Universal.ShaderGraph.UniversalUnlitSubTarget",
     "m_ObjectId": "7e114595d39b448ab0a28710a54b43fd"
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "8221894a8ff341849778619c2773a7e7",
+    "m_Id": 4,
+    "m_DisplayName": "attenuation",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "attenuation",
+    "m_StageCapability": 3,
+    "m_Value": 0.15000000596046449,
+    "m_DefaultValue": 0.0,
+    "m_Labels": []
 }
 
 {
@@ -960,10 +975,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -405.0,
-            "y": 745.0,
-            "width": 271.0,
-            "height": 326.0
+            "x": -404.99993896484377,
+            "y": 745.0000610351563,
+            "width": 271.00006103515627,
+            "height": 325.99993896484377
         }
     },
     "m_Slots": [
@@ -975,6 +990,9 @@
         },
         {
             "m_Id": "640a4bcadb2845c0bdd5e024cca21855"
+        },
+        {
+            "m_Id": "8221894a8ff341849778619c2773a7e7"
         },
         {
             "m_Id": "5aadc0333a23409895004d32d178fc65"

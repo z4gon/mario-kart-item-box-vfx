@@ -70,7 +70,7 @@ Shader "Unlit/ItemBoxGlass"
                 MainLight_half(lightDir, lightColor);
 
                 half specular = 0;
-                ComputeBlinnPhong_half(lightDir, IN.normal, IN.viewDir, specular);
+                ComputeBlinnPhong_half(lightDir, IN.normal, IN.viewDir, 0.15, specular);
 
                 half color = fresnel + specular;
 
