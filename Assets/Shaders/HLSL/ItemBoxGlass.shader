@@ -52,7 +52,8 @@ Shader "Unlit/ItemBoxGlass"
                 // from object space to homogenous clip space
                 OUT.positionHCS = TransformObjectToHClip(IN.positionOS.xyz);
 
-                OUT.normal = IN.normal;
+                // OUT.normal = IN.normal;
+                OUT.normal = TransformObjectToWorldNormal(IN.normal);
 
                 OUT.viewDir = normalize(_WorldSpaceCameraPos.xyz - TransformObjectToWorld(IN.positionOS));
 

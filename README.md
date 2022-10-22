@@ -82,7 +82,7 @@ Blend SrcAlpha OneMinusSrcAlpha
 ```c
 OUT.positionHCS = TransformObjectToHClip(IN.positionOS.xyz);
 
-OUT.normal = IN.normal;
+OUT.normal = TransformObjectToWorldNormal(IN.normal);
 
 OUT.viewDir = normalize(_WorldSpaceCameraPos.xyz - TransformObjectToWorld(IN.positionOS));
 ```
