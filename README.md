@@ -2,11 +2,16 @@
 
 VFX for the item box from the Mario Kart games, implemented both in Shader Graph and in pure HLSL for Universal RP in **Unity 2021.3.10f1**
 
+## Screenshots
+
+![Gif](./docs/13.gif)
+
 ### References
 
 - [MARIO KART Item Box tutorial by Jettelly](https://www.youtube.com/watch?v=4p0YvPHO4Wc)
 - [URP Unlit Shader Structure](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@8.2/manual/writing-shaders-urp-basic-unlit-structure.html)
 - [Custom Lighting in Shader Graph](https://blog.unity.com/technology/custom-lighting-in-shader-graph-expanding-your-graphs-in-2019)
+- [ShaderLibrary public repo from Unity](https://github.com/Unity-Technologies/Graphics/tree/master/Packages/com.unity.render-pipelines.universal/ShaderLibrary)
 
 ## Sections
 
@@ -17,6 +22,7 @@ VFX for the item box from the Mario Kart games, implemented both in Shader Graph
   - [Animated Rainbow Colors in ShaderGraph](#animated-rainbow-colors-in-shadergraph)
   - [Fresnel and BlinnPhong in ShaderGraph](#fresnel-and-blinn-phong-in-shadergraph)
 - [Particle System](#particle-system)
+- [Animation](#animation)
 - [Creating the Textures](#creating-the-textures)
 - [Creating the Mesh](#creating-the-mesh)
 
@@ -202,6 +208,15 @@ void ComputeBlinnPhong_half(half3 lightDir, half3 normal, half3 viewDir, out hal
   - Set `Start Speed` to zero in the top.
   - Set `Rate Over Time` to zero in the `Emission` section.
     - Create one burst with just one particle.
+
+![Gif](./docs/11.gif)
+
+## Animation
+
+- Create an `Animation Controller` and an idle `Animation`.
+- Modify the curves so that the rotation is smooth and varies over time.
+
+![Gif](./docs/12.gif)
 
 ## Creating the Textures
 
