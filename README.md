@@ -1,6 +1,6 @@
 # Mario Kart Item Box VFX
 
-VFX for the item box from the Mario Kart games, implemented both in Shader Graph and in pure HLSL for Universal RP in **Unity 202-3.10f1**
+VFX for the item box from the Mario Kart games, implemented both in Shader Graph and in pure HLSL for Universal RP in **Unity 2021.3.10f1**
 
 ### References
 
@@ -195,7 +195,7 @@ void ComputeBlinnPhong_half(half3 lightDir, half3 normal, half3 viewDir, out hal
 
 ## Creating the Textures
 
-![Gif](./docs/-gif)
+![Gif](./docs/1.gif)
 ![Gif](./docs/2.gif)
 ![Gif](./docs/3.gif)
 
