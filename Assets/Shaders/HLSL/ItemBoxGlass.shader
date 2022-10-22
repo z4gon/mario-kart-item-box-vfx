@@ -11,7 +11,7 @@ Shader "Unlit/ItemBoxGlass"
         LOD 100
 
         ZWrite Off
-        Blend SrcAlpha OneMinusSrcAlpha
+        Blend One One
 
         Pass
         {
@@ -62,7 +62,7 @@ Shader "Unlit/ItemBoxGlass"
                 // fresnel
                 half fresnelDot = dot(IN.normal, IN.viewDir);
                 fresnelDot = saturate(fresnelDot); // clamp to 0,1
-                half fresnel = max(0.0, 0.8 - fresnelDot); // fresnelDot is zero when normal is 90 deg angle from view dir
+                half fresnel = max(0.0, 0.6 - fresnelDot); // fresnelDot is zero when normal is 90 deg angle from view dir
 
                 // blinn phong
                 float3 lightDir = 0;

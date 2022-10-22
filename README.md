@@ -12,6 +12,7 @@ VFX for the item box from the Mario Kart games, implemented both in Shader Graph
 
 - [Pure HLSL Implemenation](#pure-hlsl-implementation)
   - [Animated Rainbow Colors in pure HLSL](#animated-rainbow-colors-in-pure-hlsl)
+  - [Fresnel and BlinnPhong in pure HLSL](#fresnel-and-blinn-phong-in-pure-hlsl)
 - [Shader Graph Implementation](#shader-graph-implementation)
   - [Animated Rainbow Colors in ShaderGraph](#animated-rainbow-colors-in-shadergraph)
   - [Fresnel and BlinnPhong in ShaderGraph](#fresnel-and-blinn-phong-in-shadergraph)
@@ -48,6 +49,84 @@ half4 frag(Varyings IN) : SV_Target
 
 ![Gif](./docs/7.gif)
 
+### Fresnel and BlinnPhong in pure HLSL
+
+1. Add `Tags` to specify the shader will be transparent.
+1. `ZWrite Off` for best practices.
+1. Use `Blend One One` to make an [additive](https://docs.unity3d.com/Manual/SL-Blend.html) blend mode with the `Frame Buffer`.
+
+```c
+Tags { "RenderType"="Transparent" }
+Tags { "Queue"="Transparent" }
+LOD 100
+
+ZWrite Off
+Blend SrcAlpha OneMinusSrcAlpha
+```
+
+1. Include the `Core.hlsl` to use stuff like `TransformObjectToHClip` which is included along with [several other transformation functions](https://github.com/Unity-Technologies/Graphics/blob/86cdbd182b8fa8aeda2ff536434f9456f3e5029b/Packages/com.unity.render-pipelines.core/ShaderLibrary/SpaceTransforms.hlsl).
+1. Include `Lighting.hlsl` so that `GetMainLight()` works inside `MainLight.hlsl`
+   1. We can't include `Lighting.hlsl` inside `MainLight.hlsl`, becasue that file is also used in shader lab, where it gets compiled along other includes. And it would result in a redefinition of a lot of things.
+
+```c
+#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+#include "./MainLight.hlsl"
+#include "./BlinnPhongLighting.hlsl"
+```
+
+1. Obtain the view dir in world space by substracting the world space position of the vertex to the `_WorldSpaceCameraPos`, which is a [built-in shader variable](https://docs.unity3d.com/Manual/SL-UnityShaderVariables.html).
+1. Then [normalize()](https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-normalize) it.
+
+```c
+OUT.positionHCS = TransformObjectToHClip(IN.positionOS.xyz);
+
+OUT.normal = IN.normal;
+
+OUT.viewDir = normalize(_WorldSpaceCameraPos.xyz - TransformObjectToWorld(IN.positionOS));
+```
+
+1. Calculate the `Fresnel` effect by doing the [dot()](https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-dot) between the view direction and the normal of the pixel.
+
+```c
+// fresnel
+half fresnelDot = dot(IN.normal, IN.viewDir);
+fresnelDot = saturate(fresnelDot); // clamp to 0,1
+half fresnel = max(0.0, 0.6 - fresnelDot); // fresnelDot is zero when normal is 90 deg angle from view dir
+```
+
+1. Calculate the `BlinnPhong` lighting by doing the dot product between the refracted light dir along the normal, and the view dir.
+
+```c
+// blinn phong
+float3 lightDir = 0;
+float3 lightColor = 0;
+MainLight_half(lightDir, lightColor);
+
+half specular = 0;
+ComputeBlinnPhong_half(lightDir, IN.normal, IN.viewDir, specular);
+```
+
+```c
+void MainLight_half(out half3 Direction, out half3 Color)
+{
+    Light light = GetMainLight();
+    Direction = light.direction;
+    Color = light.color;
+}
+```
+
+```c
+void ComputeBlinnPhong_half(half3 lightDir, half3 normal, half3 viewDir, out half Specular)
+{
+    half3 reflectedLightDir = reflect(lightDir, normal);
+
+    Specular = max(0, dot(-viewDir, reflectedLightDir)); // avoid negative values
+}
+```
+
+![Gif](./docs/10.gif)
+
 ## Shader Graph Implementation
 
 ### Animated Rainbow Colors in ShaderGraph
@@ -79,7 +158,7 @@ half4 frag(Varyings IN) : SV_Target
 1. Use the `Normal Vector` and `View Direction` nodes, along with the calculated `Main Light` direction, to compute the basic `Blinn Phong` lighting in the custom function.
 1. Add the `Fresnel` and the `Blinn Phong` together.
 
-#### HLSL
+#### HLSL Snippets
 
 ```c
 void MainLight_half(out half3 Direction, out half3 Color)
