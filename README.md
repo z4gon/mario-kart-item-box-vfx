@@ -69,7 +69,7 @@ Tags { "Queue"="Transparent" }
 LOD 100
 
 ZWrite Off
-Blend SrcAlpha OneMinusSrcAlpha
+Blend One One
 ```
 
 - Include the `Core.hlsl` to use stuff like `TransformObjectToHClip` which is included along with [several other transformation functions](https://github.com/Unity-Technologies/Graphics/blob/86cdbd182b8fa8aeda2ff536434f9456f3e5029b/Packages/com.unity.render-pipelines.core/ShaderLibrary/SpaceTransforms.hlsl).
