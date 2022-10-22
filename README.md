@@ -16,6 +16,7 @@ VFX for the item box from the Mario Kart games, implemented both in Shader Graph
 - [Shader Graph Implementation](#shader-graph-implementation)
   - [Animated Rainbow Colors in ShaderGraph](#animated-rainbow-colors-in-shadergraph)
   - [Fresnel and BlinnPhong in ShaderGraph](#fresnel-and-blinn-phong-in-shadergraph)
+- [Particle System](#particle-system)
 - [Creating the Textures](#creating-the-textures)
 - [Creating the Mesh](#creating-the-mesh)
 
@@ -192,6 +193,15 @@ void ComputeBlinnPhong_half(half3 lightDir, half3 normal, half3 viewDir, out hal
 
 ![Gif](./docs/8.gif)
 ![Gif](./docs/9.gif)
+
+## Particle System
+
+- Create a `ShaderGraph` shader to just render the question mark texture.
+- Create a `Shuriken` particle system object.
+  - Disable the `Shape` section to avoid particles changing size over time.
+  - Set `Start Speed` to zero in the top.
+  - Set `Rate Over Time` to zero in the `Emission` section.
+    - Create one burst with just one particle.
 
 ## Creating the Textures
 
