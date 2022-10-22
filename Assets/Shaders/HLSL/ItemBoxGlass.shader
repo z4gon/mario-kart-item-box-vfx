@@ -3,6 +3,8 @@ Shader "Unlit/ItemBoxGlass"
 {
     Properties
     {
+        _FresnelPower("Fresnel Power", Range(0,2)) = 0.75
+        _SpecularPower("Specular Power", Range(0,1)) = 0.15
     }
     SubShader
     {
@@ -57,12 +59,15 @@ Shader "Unlit/ItemBoxGlass"
                 return OUT;
             }
 
+            float _FresnelPower;
+            float _SpecularPower;
+
             half4 frag(Varyings IN) : SV_Target
             {
                 // fresnel
                 half fresnelDot = dot(IN.normal, IN.viewDir);
                 fresnelDot = saturate(fresnelDot); // clamp to 0,1
-                half fresnel = max(0.0, 0.6 - fresnelDot); // fresnelDot is zero when normal is 90 deg angle from view dir
+                half fresnel = max(0.0, _FresnelPower - fresnelDot); // fresnelDot is zero when normal is 90 deg angle from view dir
 
                 // blinn phong
                 float3 lightDir = 0;
@@ -70,7 +75,7 @@ Shader "Unlit/ItemBoxGlass"
                 MainLight_half(lightDir, lightColor);
 
                 half specular = 0;
-                ComputeBlinnPhong_half(lightDir, IN.normal, IN.viewDir, 0.15, specular);
+                ComputeBlinnPhong_half(lightDir, IN.normal, IN.viewDir, _SpecularPower, specular);
 
                 half color = fresnel + specular;
 
